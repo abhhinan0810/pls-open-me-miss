@@ -3,101 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Form</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
-
-body{
-    background:#f4f7fc;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-}
-
-.container{
-    background:white;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.1);
-    width:350px;
-}
-
-h2{
-    text-align:center;
-    margin-bottom:20px;
-    color:#333;
-}
-
-input[type="date"]{
-    width:100%;
-    padding:10px;
-    border:1px solid #ddd;
-    border-radius:8px;
-    margin-bottom:20px;
-}
-
-.checkbox-group{
-    margin-bottom:20px;
-}
-
-.checkbox-group label{
-    display:block;
-    margin:10px 0;
-    color:#555;
-}
-
-button{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:8px;
-    background:#4f46e5;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-button:hover{
-    background:#3730a3;
-}
-</style>
-
+<title>Can We Meet? </title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-    <h2>Event Form</h2>
+<div class="hearts"></div>
+
+<div class="card" id="page1">
+    <h2>Namaskaram Suhrthe</h2>
+    <h1>Can we meet one day?🙂</h1>
+    <p class="subtext" id="message"></p>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 😤</button>
+    </div>
+</div>
+
+<div class="card hidden" id="page2">
+    <h1>YAY! 🎉</h1>
+    <p>Just one promise... I won't argue. I just want to talk ❤️</p>
 
     <form action="https://formsubmit.co/abhinavskdv@gmail.com" method="POST">
-
         <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://pls-open-me-miss.vercel.app/thankyou.html">
 
-        <input type="date" name="Date" required>
+        <label>When would you be free?</label>
+        <select id="dateSelect" name="Date" required></select>
 
-        <div class="checkbox-group">
-            <label>
-                <input type="checkbox" name="Option A">
-                Option A
-            </label>
+        <label>Preferred time?</label>
+        <select id="timeSelect" name="Time" required></select>
 
-            <label>
-                <input type="checkbox" name="Option B">
-                Option B
-            </label>
-        </div>
+        <label>Anything you'd like me to know? (Optional)</label>
+        <textarea name="Notes" rows="4"></textarea>
 
-        <button type="submit">Submit</button>
-
+        <button type="submit">Let's do this ❤️</button>
     </form>
 </div>
 
+<script src="script.js"></script>
 </body>
 </html>
