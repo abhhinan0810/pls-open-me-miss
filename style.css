@@ -2,7 +2,7 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:'Times New Roman', Times, serif;
 }
 
 body{
@@ -10,7 +10,7 @@ min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:linear-gradient(135deg,#ffdde1,#ee9ca7);
+background:linear-gradient(135deg,#f4f8e6,#dfee9c);
 padding:20px;
 overflow:hidden;
 }
@@ -30,7 +30,7 @@ h1{margin:15px 0;}
 .subtext{
 min-height:40px;
 font-weight:bold;
-color:#7a1f47;
+color:#663e09;
 }
 
 .buttons{
@@ -48,7 +48,7 @@ font-size:16px;
 }
 
 #yesBtn{
-background:#ff4f8b;
+background:#6b6001;
 color:white;
 }
 
@@ -78,7 +78,6 @@ display:none;
 
 .hearts::before,
 .hearts::after{
-content:"❤️ ❤️ 💖 💕";
 position:fixed;
 font-size:22px;
 opacity:.25;
