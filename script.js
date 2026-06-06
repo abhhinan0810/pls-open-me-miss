@@ -5,6 +5,21 @@ const page1 = document.getElementById("page1");
 const page2 = document.getElementById("page2");
 
 const msg = document.getElementById("message");
+const counter = document.getElementById("counter");
+
+/* STARTING POSITION */
+
+window.addEventListener("load", () => {
+
+    noBtn.style.left =
+        (window.innerWidth - 120) + "px";
+
+    noBtn.style.top =
+        (window.innerHeight - 120) + "px";
+
+});
+
+/* MESSAGES */
 
 const messages = [
     "Oh c'mon 👉👈",
@@ -13,11 +28,25 @@ const messages = [
     "Hear me out...",
     "Angana paranja patoolaaa 😗",
     "Vazhakk idan alla 🫠",
-    "Fine, your choice now 🙂"
+    "Just one conversation 😌",
+    "I even made a website 😭",
+    "This button is working overtime 😂",
+    "Fine... your choice now 🙂"
 ];
 
 let count = 0;
 let yesSize = 1;
+
+/* Initial position */
+
+window.addEventListener("load", () => {
+
+    noBtn.style.left = "65%";
+    noBtn.style.top = "65%";
+
+});
+
+/* NO BUTTON */
 
 noBtn.addEventListener("click", (e) => {
 
@@ -27,171 +56,270 @@ noBtn.addEventListener("click", (e) => {
         msg.textContent = messages[count];
     }
 
-    const container = document.querySelector(".buttons");
+    counter.textContent =
+        `Escape attempts: ${count + 1} 🤨`;
 
-    const maxX = container.clientWidth - noBtn.offsetWidth;
-    const maxY = container.clientHeight - noBtn.offsetHeight;
+    const buttonWidth = noBtn.offsetWidth;
+    const buttonHeight = noBtn.offsetHeight;
 
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
+    const maxX =
+        window.innerWidth -
+        buttonWidth -
+        20;
 
-    noBtn.style.left = randomX + "px";
-    noBtn.style.top = randomY + "px";
+    const maxY =
+        window.innerHeight -
+        buttonHeight -
+        20;
 
-    yesSize += 0.15;
+    const randomX =
+        Math.random() * maxX;
 
-    yesBtn.style.transform = `scale(${yesSize})`;
+    const randomY =
+        Math.random() * maxY;
+
+    noBtn.style.left =
+        randomX + "px";
+
+    noBtn.style.top =
+        randomY + "px";
+
+    yesSize += 0.08;
+
+    yesBtn.style.transform =
+        `scale(${yesSize})`;
 
     count++;
 });
 
+/* YES BUTTON */
+
 yesBtn.addEventListener("click", () => {
+
+    noBtn.style.display = "none";
 
     page1.classList.add("hidden");
 
     page2.classList.remove("hidden");
 
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
 });
 
+/* DATE CARDS */
 
+const dateCards =
+    document.getElementById("dateCards");
 
-/* ==========================
-   DATE SELECTION CARDS
-========================== */
-
-const dateCards = document.getElementById("dateCards");
-const selectedDate = document.getElementById("selectedDate");
+const selectedDate =
+    document.getElementById("selectedDate");
 
 for (let i = 0; i < 21; i++) {
 
-    let d = new Date();
+    const d = new Date();
 
-    d.setDate(d.getDate() + i);
+    d.setDate(
+        d.getDate() + i
+    );
 
-    const card = document.createElement("div");
+    const card =
+        document.createElement("div");
 
-    card.className = "option-card";
+    card.className =
+        "option-card";
 
-    card.innerText = d.toDateString();
+    card.innerText =
+        d.toDateString();
 
-    card.onclick = () => {
+    card.addEventListener(
+        "click",
+        () => {
 
-        document
-            .querySelectorAll("#dateCards .option-card")
-            .forEach(c => c.classList.remove("selected"));
+            document
+                .querySelectorAll(
+                    "#dateCards .option-card"
+                )
+                .forEach(card =>
+                    card.classList.remove(
+                        "selected"
+                    )
+                );
 
-        card.classList.add("selected");
+            card.classList.add(
+                "selected"
+            );
 
-        selectedDate.value = d.toDateString();
-    };
+            selectedDate.value =
+                d.toDateString();
+
+        }
+    );
 
     dateCards.appendChild(card);
 }
 
+/* CALL OPTION */
 
+const callDate =
+    document.createElement("div");
 
-const callDate = document.createElement("div");
+callDate.className =
+    "option-card";
 
-callDate.className = "option-card";
+callDate.innerText =
+    "📞 I'll call you";
 
-callDate.innerText = "📞 I'll call you";
+callDate.addEventListener(
+    "click",
+    () => {
 
-callDate.onclick = () => {
+        document
+            .querySelectorAll(
+                "#dateCards .option-card"
+            )
+            .forEach(card =>
+                card.classList.remove(
+                    "selected"
+                )
+            );
 
-    document
-        .querySelectorAll("#dateCards .option-card")
-        .forEach(c => c.classList.remove("selected"));
+        callDate.classList.add(
+            "selected"
+        );
 
-    callDate.classList.add("selected");
+        selectedDate.value =
+            "I'll call you";
 
-    selectedDate.value = "I'll call you";
-};
+    }
+);
 
 dateCards.appendChild(callDate);
 
+/* TIME CARDS */
 
+const timeCards =
+    document.getElementById("timeCards");
 
-/* ==========================
-   TIME SELECTION CARDS
-========================== */
-
-const timeCards = document.getElementById("timeCards");
-const selectedTime = document.getElementById("selectedTime");
+const selectedTime =
+    document.getElementById("selectedTime");
 
 for (let h = 5; h <= 22; h++) {
+
+    const card =
+        document.createElement("div");
+
+    card.className =
+        "option-card";
 
     let display =
         (h > 12 ? h - 12 : h) +
         ":00 " +
         (h >= 12 ? "PM" : "AM");
 
-    const card = document.createElement("div");
+    card.innerText =
+        display;
 
-    card.className = "option-card";
+    card.addEventListener(
+        "click",
+        () => {
 
-    card.innerText = display;
+            document
+                .querySelectorAll(
+                    "#timeCards .option-card"
+                )
+                .forEach(card =>
+                    card.classList.remove(
+                        "selected"
+                    )
+                );
 
-    card.onclick = () => {
+            card.classList.add(
+                "selected"
+            );
 
-        document
-            .querySelectorAll("#timeCards .option-card")
-            .forEach(c => c.classList.remove("selected"));
+            selectedTime.value =
+                display;
 
-        card.classList.add("selected");
-
-        selectedTime.value = display;
-    };
+        }
+    );
 
     timeCards.appendChild(card);
 }
 
+/* CALL OPTION */
 
+const callTime =
+    document.createElement("div");
 
-const callTime = document.createElement("div");
+callTime.className =
+    "option-card";
 
-callTime.className = "option-card";
+callTime.innerText =
+    "📞 I'll call you";
 
-callTime.innerText = "📞 I'll call you";
+callTime.addEventListener(
+    "click",
+    () => {
 
-callTime.onclick = () => {
+        document
+            .querySelectorAll(
+                "#timeCards .option-card"
+            )
+            .forEach(card =>
+                card.classList.remove(
+                    "selected"
+                )
+            );
 
-    document
-        .querySelectorAll("#timeCards .option-card")
-        .forEach(c => c.classList.remove("selected"));
+        callTime.classList.add(
+            "selected"
+        );
 
-    callTime.classList.add("selected");
+        selectedTime.value =
+            "I'll call you";
 
-    selectedTime.value = "I'll call you";
-};
+    }
+);
 
 timeCards.appendChild(callTime);
 
+/* FORM VALIDATION */
 
+const form =
+    document.querySelector("form");
 
-/* ==========================
-   FORM VALIDATION
-========================== */
+form.addEventListener(
+    "submit",
+    (e) => {
 
-const form = document.querySelector("form");
+        if (
+            !selectedDate.value
+        ) {
 
-form.addEventListener("submit", (e) => {
+            e.preventDefault();
 
-    if (!selectedDate.value) {
+            alert(
+                "Pick a date 😌"
+            );
 
-        e.preventDefault();
+            return;
+        }
 
-        alert("Select a date 😌");
+        if (
+            !selectedTime.value
+        ) {
 
-        return;
+            e.preventDefault();
+
+            alert(
+                "Pick a time 😌"
+            );
+
+            return;
+        }
+
     }
-
-    if (!selectedTime.value) {
-
-        e.preventDefault();
-
-        alert("Select a time 😌");
-
-        return;
-    }
-
-});
+);
