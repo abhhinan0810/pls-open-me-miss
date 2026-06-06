@@ -1,65 +1,197 @@
-const noBtn=document.getElementById("noBtn");
-const yesBtn=document.getElementById("yesBtn");
-const page1=document.getElementById("page1");
-const page2=document.getElementById("page2");
-const msg=document.getElementById("message");
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
 
-const messages=[
-"Oh c'mon👉👈",
-"Pretty please?🎀",
-"Nthuvadeyy🥲",
-"Hear me out...",
-"Angana paranja patoolaaa😗",
-"vazhakk idan alla🫠",
-"fine, your choice now🙂"
+const page1 = document.getElementById("page1");
+const page2 = document.getElementById("page2");
+
+const msg = document.getElementById("message");
+
+const messages = [
+    "Oh c'mon 👉👈",
+    "Pretty please? 🎀",
+    "Nthuvadeyy 🥲",
+    "Hear me out...",
+    "Angana paranja patoolaaa 😗",
+    "Vazhakk idan alla 🫠",
+    "Fine, your choice now 🙂"
 ];
 
-let count=0;
-let yesSize=1;
+let count = 0;
+let yesSize = 1;
 
-noBtn.addEventListener("click",(e)=>{
-e.preventDefault();
+noBtn.addEventListener("click", (e) => {
 
-if(count<6){
-msg.textContent=messages[count];
+    e.preventDefault();
 
-const maxX=window.innerWidth-150;
-const maxY=window.innerHeight-100;
+    if (count < messages.length) {
+        msg.textContent = messages[count];
+    }
 
-noBtn.style.left=Math.random()*maxX+"px";
-noBtn.style.top=Math.random()*maxY+"px";
+    const container = document.querySelector(".buttons");
 
-yesSize+=0.15;
-yesBtn.style.transform=`scale(${yesSize})`;
-}
+    const maxX = container.clientWidth - noBtn.offsetWidth;
+    const maxY = container.clientHeight - noBtn.offsetHeight;
 
-count++;
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+
+    yesSize += 0.15;
+
+    yesBtn.style.transform = `scale(${yesSize})`;
+
+    count++;
 });
 
-yesBtn.addEventListener("click",()=>{
-page1.classList.add("hidden");
-page2.classList.remove("hidden");
+yesBtn.addEventListener("click", () => {
+
+    page1.classList.add("hidden");
+
+    page2.classList.remove("hidden");
+
 });
 
-const dateSelect=document.getElementById("dateSelect");
-dateSelect.innerHTML='<option value="I will call you">📞 I will call you</option>';
 
-for(let i=0;i<21;i++){
-let d=new Date();
-d.setDate(d.getDate()+i);
-let option=document.createElement("option");
-option.value=d.toDateString();
-option.textContent=d.toDateString();
-dateSelect.appendChild(option);
+
+/* ==========================
+   DATE SELECTION CARDS
+========================== */
+
+const dateCards = document.getElementById("dateCards");
+const selectedDate = document.getElementById("selectedDate");
+
+for (let i = 0; i < 21; i++) {
+
+    let d = new Date();
+
+    d.setDate(d.getDate() + i);
+
+    const card = document.createElement("div");
+
+    card.className = "option-card";
+
+    card.innerText = d.toDateString();
+
+    card.onclick = () => {
+
+        document
+            .querySelectorAll("#dateCards .option-card")
+            .forEach(c => c.classList.remove("selected"));
+
+        card.classList.add("selected");
+
+        selectedDate.value = d.toDateString();
+    };
+
+    dateCards.appendChild(card);
 }
 
-const timeSelect=document.getElementById("timeSelect");
-timeSelect.innerHTML='<option value="I will call you">📞 I will call you</option>';
 
-for(let h=5;h<=22;h++){
-let option=document.createElement("option");
-let display=(h>12?h-12:h)+":00 "+(h>=12?"PM":"AM");
-option.value=display;
-option.textContent=display;
-timeSelect.appendChild(option);
+
+const callDate = document.createElement("div");
+
+callDate.className = "option-card";
+
+callDate.innerText = "📞 I'll call you";
+
+callDate.onclick = () => {
+
+    document
+        .querySelectorAll("#dateCards .option-card")
+        .forEach(c => c.classList.remove("selected"));
+
+    callDate.classList.add("selected");
+
+    selectedDate.value = "I'll call you";
+};
+
+dateCards.appendChild(callDate);
+
+
+
+/* ==========================
+   TIME SELECTION CARDS
+========================== */
+
+const timeCards = document.getElementById("timeCards");
+const selectedTime = document.getElementById("selectedTime");
+
+for (let h = 5; h <= 22; h++) {
+
+    let display =
+        (h > 12 ? h - 12 : h) +
+        ":00 " +
+        (h >= 12 ? "PM" : "AM");
+
+    const card = document.createElement("div");
+
+    card.className = "option-card";
+
+    card.innerText = display;
+
+    card.onclick = () => {
+
+        document
+            .querySelectorAll("#timeCards .option-card")
+            .forEach(c => c.classList.remove("selected"));
+
+        card.classList.add("selected");
+
+        selectedTime.value = display;
+    };
+
+    timeCards.appendChild(card);
 }
+
+
+
+const callTime = document.createElement("div");
+
+callTime.className = "option-card";
+
+callTime.innerText = "📞 I'll call you";
+
+callTime.onclick = () => {
+
+    document
+        .querySelectorAll("#timeCards .option-card")
+        .forEach(c => c.classList.remove("selected"));
+
+    callTime.classList.add("selected");
+
+    selectedTime.value = "I'll call you";
+};
+
+timeCards.appendChild(callTime);
+
+
+
+/* ==========================
+   FORM VALIDATION
+========================== */
+
+const form = document.querySelector("form");
+
+form.addEventListener("submit", (e) => {
+
+    if (!selectedDate.value) {
+
+        e.preventDefault();
+
+        alert("Select a date 😌");
+
+        return;
+    }
+
+    if (!selectedTime.value) {
+
+        e.preventDefault();
+
+        alert("Select a time 😌");
+
+        return;
+    }
+
+});
