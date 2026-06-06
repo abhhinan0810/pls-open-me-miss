@@ -1,38 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thank You ❤️</title>
-<style>
-body{
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-background:linear-gradient(135deg,#ffdde1,#ee9ca7);
-font-family:Arial,sans-serif;
-}
-.card{
-background:white;
-padding:30px;
-border-radius:20px;
-text-align:center;
-}
-button{
-padding:12px 20px;
-border:none;
-border-radius:999px;
-background:#ff4f8b;
-color:white;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You 💙</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(145deg, #f0f7ff 0%, #c9e0fa 50%, #e8f4ff 100%);
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(10,102,194,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(59,135,212,0.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1.5px solid rgba(255,255,255,0.75);
+      border-radius: 28px;
+      box-shadow: 0 8px 32px rgba(10,102,194,0.13);
+      padding: 52px 36px 44px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      animation: pop .7s cubic-bezier(.22,1,.36,1) both;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes pop {
+      from { opacity: 0; transform: scale(.88) translateY(20px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .heart {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 16px;
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.14); }
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(2rem, 9vw, 2.8rem);
+      color: #0A66C2;
+      margin-bottom: 14px;
+      text-shadow: 0 2px 12px rgba(10,102,194,0.12);
+    }
+
+    p {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #2e6ab5;
+      line-height: 1.6;
+      margin-bottom: 34px;
+    }
+
+    .btn-close {
+      background: #0A66C2;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 13px 36px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(10,102,194,0.32);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .btn-close:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(10,102,194,0.4);
+    }
+
+    .btn-close:active { transform: scale(.97); }
+
+    /* floating sparkles */
+    .sparkle {
+      position: fixed;
+      font-size: 1.4rem;
+      pointer-events: none;
+      animation: float 5s ease-in-out infinite;
+      opacity: .6;
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: .6; }
+      50% { transform: translateY(-22px) rotate(18deg); opacity: .9; }
+    }
+  </style>
 </head>
 <body>
-<div class="card">
-<h1>Thank You ❤️</h1>
-<br>
-<button onclick="window.close()">Close</button>
-</div>
+
+  <!-- Sparkles -->
+  <span class="sparkle" style="top:10%;left:8%;animation-delay:0s">✨</span>
+  <span class="sparkle" style="top:15%;right:10%;animation-delay:1.2s">💫</span>
+  <span class="sparkle" style="bottom:18%;left:6%;animation-delay:.7s">🌟</span>
+  <span class="sparkle" style="bottom:12%;right:8%;animation-delay:2s">✨</span>
+
+  <div class="card">
+    <span class="heart">💙</span>
+    <h1>Thank you</h1>
+    <p>Looking forward to talking 🙂</p>
+    <button class="btn-close" onclick="tryClose()">Close Site</button>
+  </div>
+
+  <script>
+    function tryClose() {
+      window.open('', '_self', '');
+      window.close();
+    }
+  </script>
 </body>
 </html>

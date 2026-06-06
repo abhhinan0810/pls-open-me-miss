@@ -1,124 +1,550 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Can We Meet? 🙂</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Can We Meet? 💙</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <link rel="stylesheet" href="style.css">
+    :root {
+      --blue: #0A66C2;
+      --blue-light: #3b87d4;
+      --blue-pale: #dbeafe;
+      --white: #ffffff;
+      --glass-bg: rgba(255,255,255,0.55);
+      --glass-border: rgba(255,255,255,0.75);
+      --shadow: 0 8px 32px rgba(10,102,194,0.13);
+      --radius: 24px;
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(145deg, #f0f7ff 0%, #c9e0fa 50%, #e8f4ff 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(10,102,194,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(59,135,212,0.10) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── PAGES ── */
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    #page2 { display: none; }
+
+    /* ── GLASS CARD ── */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1.5px solid var(--glass-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow), 0 2px 8px rgba(255,255,255,0.6) inset;
+      padding: 36px 28px 32px;
+      width: 100%;
+      max-width: 420px;
+      position: relative;
+      animation: fadeUp .6s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── HEADER ── */
+    .header-title {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.5rem, 6vw, 2rem);
+      color: var(--blue);
+      text-align: center;
+      margin-bottom: 22px;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 12px rgba(10,102,194,0.12);
+    }
+
+    /* ── T&C BOX ── */
+    .tnc-box {
+      background: rgba(219,234,254,0.5);
+      border: 1.5px solid rgba(10,102,194,0.15);
+      border-radius: 18px;
+      padding: 16px 14px 12px;
+      margin-bottom: 22px;
+    }
+
+    .tnc-title {
+      font-weight: 800;
+      font-size: .9rem;
+      color: var(--blue);
+      margin-bottom: 10px;
+      letter-spacing: .3px;
+    }
+
+    .tnc-item {
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(10,102,194,0.1);
+      border-radius: 12px;
+      padding: 9px 13px;
+      margin-bottom: 8px;
+      font-size: .88rem;
+      font-weight: 600;
+      color: #1e4b8f;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tnc-item:last-child { margin-bottom: 0; }
+
+    .tnc-check {
+      width: 20px; height: 20px;
+      background: var(--blue);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: .7rem;
+      color: #fff;
+    }
+
+    /* ── QUESTION ── */
+    .question {
+      font-size: clamp(1.1rem, 4.5vw, 1.3rem);
+      font-weight: 800;
+      color: #1e4b8f;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    /* ── MESSAGE AREA ── */
+    .msg-area {
+      min-height: 36px;
+      text-align: center;
+      font-size: .93rem;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 6px;
+      transition: all .3s ease;
+    }
+
+    .counter {
+      text-align: center;
+      font-size: .8rem;
+      font-weight: 700;
+      color: #5a8ec7;
+      margin-bottom: 14px;
+      min-height: 20px;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      white-space: nowrap;
+    }
+
+    .btn-yes {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(10,102,194,0.35);
+    }
+
+    .btn-yes:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 6px 24px rgba(10,102,194,0.4); }
+    .btn-yes:active { transform: scale(.97); }
+
+    .btn-no {
+      background: rgba(255,255,255,0.8);
+      color: var(--blue);
+      border: 2px solid rgba(10,102,194,0.25);
+      box-shadow: 0 2px 10px rgba(10,102,194,0.1);
+    }
+
+    .btn-no:hover { transform: translateY(-2px); }
+
+    /* No button when floating */
+    .btn-no.floating {
+      position: fixed;
+      z-index: 9999;
+      transition: left .25s cubic-bezier(.34,1.56,.64,1), top .25s cubic-bezier(.34,1.56,.64,1);
+      margin: 0;
+    }
+
+    /* ── APOLOGY IMAGE ── */
+    .apology-img {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      width: clamp(54px, 14vw, 76px);
+      opacity: .82;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    /* ── PAGE 2 ── */
+    #page2 .glass-card {
+      max-width: 480px;
+      padding-bottom: 40px;
+    }
+
+    .page2-title {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.7rem, 7vw, 2.2rem);
+      color: var(--blue);
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .page2-sub {
+      text-align: center;
+      font-size: .97rem;
+      font-weight: 600;
+      color: #2e6ab5;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .section-label {
+      font-weight: 800;
+      font-size: .95rem;
+      color: #1e4b8f;
+      margin-bottom: 12px;
+    }
+
+    /* ── DATE / TIME CHIPS ── */
+    .chip-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .chip {
+      background: rgba(255,255,255,0.7);
+      border: 1.5px solid rgba(10,102,194,0.18);
+      border-radius: 50px;
+      padding: 8px 14px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: .82rem;
+      color: #1e4b8f;
+      cursor: pointer;
+      transition: all .2s;
+      user-select: none;
+    }
+
+    .chip:hover {
+      border-color: var(--blue);
+      background: rgba(10,102,194,0.08);
+      transform: translateY(-1px);
+    }
+
+    .chip.selected {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+      box-shadow: 0 3px 14px rgba(10,102,194,0.3);
+      transform: translateY(-1px) scale(1.04);
+    }
+
+    /* ── TEXTAREA ── */
+    .notes-area {
+      width: 100%;
+      min-height: 80px;
+      background: rgba(255,255,255,0.6);
+      border: 1.5px solid rgba(10,102,194,0.18);
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: .9rem;
+      font-weight: 600;
+      color: #1e4b8f;
+      resize: vertical;
+      outline: none;
+      margin-bottom: 22px;
+      transition: border .2s;
+    }
+
+    .notes-area:focus { border-color: var(--blue); }
+    .notes-area::placeholder { color: #8ab4d6; }
+
+    /* ── SUBMIT ── */
+    .btn-submit {
+      width: 100%;
+      background: var(--blue);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 14px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(10,102,194,0.35);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 26px rgba(10,102,194,0.42); }
+    .btn-submit:active { transform: scale(.98); }
+
+    /* ── PAGE TRANSITION ── */
+    .fade-out { animation: fadeOut .35s ease forwards; }
+    @keyframes fadeOut {
+      to { opacity: 0; transform: translateY(-16px); }
+    }
+
+    .fade-in { animation: fadeUp .5s cubic-bezier(.22,1,.36,1) both; }
+  </style>
 </head>
-
 <body>
 
-    <div class="hearts"></div>
+<!-- ════════════════════ PAGE 1 ════════════════════ -->
+<div class="page" id="page1">
+  <div class="glass-card" id="card1">
 
-    <!-- PAGE 1 -->
+    <!-- Apology image -->
+    <img src="pls.png" alt="" class="apology-img" />
 
-    <div class="card" id="page1">
+    <h1 class="header-title">Namaskaram Arya 💙</h1>
 
-        <h2>Namaskaram Suhrthe 💙</h2>
+    <!-- T&C -->
+    <div class="tnc-box">
+      <div class="tnc-title">Terms &amp; Conditions 📜</div>
+      <div class="tnc-item">
+        <span class="tnc-check">✓</span>
+        Can we talk openly?
+      </div>
+      <div class="tnc-item">
+        <span class="tnc-check">✓</span>
+        Can we sit/stand somewhere and talk?
+      </div>
+    </div>
 
-        <div class="terms-box">
+    <p class="question">Can we meet one day? 🙂</p>
 
-            <h3>Terms & Conditions 📜</h3>
+    <div class="msg-area" id="msgArea"></div>
+    <div class="counter" id="counter"></div>
 
-            <div class="term">
-                ✓ Can we talk openly?
-            </div>
+    <div class="btn-row" id="btnRow">
+      <button class="btn btn-yes" id="btnYes" onclick="handleYes()">Yes 💖</button>
+      <button class="btn btn-no" id="btnNo" onclick="handleNo()">No 😤</button>
+    </div>
 
-            <div class="term">
-                ✓ Can we sit/stand somewhere and talk?
-            </div>
-
-        </div>
-
-        <h1>Can we meet one day? 🙂</h1>
-
-        <p class="subtext" id="message"></p>
-
-        <p id="counter"></p>
-
-        <div class="buttons">
-
-            <button id="yesBtn">
-                Yes 💖
-            </button>
-
-            <button id="noBtn">
-                No 😤
-            </button>
-
-        </div>
-<div class="apology-image">
-    <img src="pls.png" alt="pls">
+  </div>
 </div>
-    </div>
 
-    <!-- PAGE 2 -->
+<!-- ════════════════════ PAGE 2 ════════════════════ -->
+<div class="page" id="page2">
+  <div class="glass-card fade-in">
 
-    <div class="card hidden" id="page2">
+    <h2 class="page2-title">Yayy 💙</h2>
+    <p class="page2-sub">I won't argue.<br>I just want to talk 🙂</p>
 
-        <h1>Heheh</h1>
+    <form
+      action="https://formsubmit.co/abhinavskdv@gmail.com"
+      method="POST"
+    >
+      <!-- FormSubmit config -->
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next" value="https://pls-open-me-miss.vercel.app/thankyou.html" />
+      <input type="hidden" name="_template" value="box" />
 
-        <p class="intro-text">
-            I won't argue, I just want to talk 🙂
-        </p>
+      <!-- Date -->
+      <div class="section-label">📅 When will you be free?</div>
+      <div class="chip-grid" id="dateChips"></div>
+      <input type="hidden" name="selected_date" id="dateVal" />
 
-        <form action="https://formsubmit.co/abhinavskdv@gmail.com" method="POST">
+      <!-- Time -->
+      <div class="section-label">🕐 Time?</div>
+      <div class="chip-grid" id="timeChips"></div>
+      <input type="hidden" name="selected_time" id="timeVal" />
 
-            <input type="hidden" name="_captcha" value="false">
+      <!-- Notes -->
+      <div class="section-label">📝 Any notes? (Optional)</div>
+      <textarea class="notes-area" name="notes" placeholder="Anything you want to say..."></textarea>
 
-            <input
-                type="hidden"
-                name="_next"
-                value="https://pls-open-me-miss.vercel.app/thankyou.html">
+      <button type="submit" class="btn-submit">Send 💙</button>
+    </form>
 
-            <label>
-                When will you be free?
-            </label>
+  </div>
+</div>
 
-            <div id="dateCards" class="card-grid"></div>
+<script>
+  // ── NO BUTTON MESSAGES ──
+  const messages = [
+    "Oh c'mon 👉👈",
+    "Pretty please? 🎀",
+    "Nthuvadeyy 🥲",
+    "Hear me out...",
+    "Angana paranja patoolaaa 😗",
+    "Vazhakk idan alla 🫠",
+    "Just one conversation 😌",
+    "I even made a website 😭",
+    "This button is working overtime 😂",
+    "Fine... your choice now 🙂"
+  ];
 
-            <input
-                type="hidden"
-                id="selectedDate"
-                name="Date"
-                required>
+  let noCount = 0;
+  let isFloating = false;
+  let yesFontSize = 1; // rem
 
-            <label>
-                Time?
-            </label>
+  function handleNo() {
+    const btn = document.getElementById('btnNo');
+    const msgArea = document.getElementById('msgArea');
+    const counter = document.getElementById('counter');
+    const btnYes = document.getElementById('btnYes');
 
-            <div id="timeCards" class="card-grid"></div>
+    // Show message
+    if (noCount < messages.length) {
+      msgArea.style.opacity = 0;
+      setTimeout(() => {
+        msgArea.textContent = messages[noCount];
+        msgArea.style.opacity = 1;
+      }, 150);
+    }
 
-            <input
-                type="hidden"
-                id="selectedTime"
-                name="Time"
-                required>
+    noCount++;
 
-            <label>
-                Any notes? (Optional)
-            </label>
+    // Counter
+    counter.textContent = `Escape attempts: ${noCount} 😤`;
 
-            <textarea
-                name="Notes"
-                rows="4"
-                placeholder="Anything you'd like to say..."></textarea>
+    // Grow Yes button
+    yesFontSize = Math.min(yesFontSize + 0.07, 1.5);
+    btnYes.style.fontSize = yesFontSize + 'rem';
+    btnYes.style.padding = `${12 + (yesFontSize - 1) * 10}px ${28 + (yesFontSize - 1) * 14}px`;
 
-            <button
-                type="submit"
-                class="submit-btn">
-                Submit 💙
-            </button>
+    // Make floating on first click
+    if (!isFloating) {
+      isFloating = true;
+      const rect = btn.getBoundingClientRect();
 
-        </form>
+      // Remove from flow
+      btn.style.width = rect.width + 'px';
+      btn.style.height = rect.height + 'px';
+      btn.classList.add('floating');
+      btn.style.left = rect.left + 'px';
+      btn.style.top = rect.top + 'px';
 
-    </div>
+      // Create placeholder so layout doesn't shift
+      const ph = document.createElement('div');
+      ph.style.width = rect.width + 'px';
+      ph.style.height = rect.height + 'px';
+      ph.style.flexShrink = '0';
+      btn.parentNode.insertBefore(ph, btn);
+    }
 
-    <script src="script.js"></script>
+    // Jump to random position
+    moveNoButton();
+  }
 
+  function moveNoButton() {
+    const btn = document.getElementById('btnNo');
+    const bw = btn.offsetWidth;
+    const bh = btn.offsetHeight;
+    const margin = 12;
+
+    const maxX = window.innerWidth - bw - margin;
+    const maxY = window.innerHeight - bh - margin;
+
+    const newX = margin + Math.random() * maxX;
+    const newY = margin + Math.random() * maxY;
+
+    btn.style.left = newX + 'px';
+    btn.style.top = newY + 'px';
+  }
+
+  // ── YES BUTTON ──
+  function handleYes() {
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+
+    page1.style.animation = 'fadeOut .35s ease forwards';
+    setTimeout(() => {
+      page1.style.display = 'none';
+      page2.style.display = 'flex';
+    }, 350);
+  }
+
+  // ── DATE CHIPS ──
+  function buildDates() {
+    const container = document.getElementById('dateChips');
+    const today = new Date();
+
+    for (let i = 0; i <= 21; i++) {
+      const d = new Date(today);
+      d.setDate(today.getDate() + i);
+
+      const label = d.toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' });
+      createChip(container, label, 'date');
+    }
+
+    // Extra chip
+    createChip(container, '📞 I\'ll call you', 'date');
+  }
+
+  // ── TIME CHIPS ──
+  function buildTimes() {
+    const container = document.getElementById('timeChips');
+    const times = [
+      '5:00 AM','6:00 AM','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM',
+      '1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM','9:00 PM','10:00 PM'
+    ];
+    times.forEach(t => createChip(container, t, 'time'));
+    createChip(container, '📞 I\'ll call you', 'time');
+  }
+
+  function createChip(container, label, group) {
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'chip';
+    chip.textContent = label;
+    chip.dataset.group = group;
+    chip.addEventListener('click', () => selectChip(chip, group));
+    container.appendChild(chip);
+  }
+
+  function selectChip(chip, group) {
+    document.querySelectorAll(`.chip[data-group="${group}"]`).forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+
+    if (group === 'date') document.getElementById('dateVal').value = chip.textContent;
+    if (group === 'time') document.getElementById('timeVal').value = chip.textContent;
+  }
+
+  buildDates();
+  buildTimes();
+</script>
 </body>
-
 </html>
