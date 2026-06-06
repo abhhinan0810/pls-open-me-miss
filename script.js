@@ -7,20 +7,6 @@ const page2 = document.getElementById("page2");
 const msg = document.getElementById("message");
 const counter = document.getElementById("counter");
 
-/* STARTING POSITION */
-
-window.addEventListener("load", () => {
-
-    noBtn.style.left =
-        (window.innerWidth - 120) + "px";
-
-    noBtn.style.top =
-        (window.innerHeight - 120) + "px";
-
-});
-
-/* MESSAGES */
-
 const messages = [
     "Oh c'mon 👉👈",
     "Pretty please? 🎀",
@@ -37,12 +23,12 @@ const messages = [
 let count = 0;
 let yesSize = 1;
 
-/* Initial position */
+/* START POSITION */
 
 window.addEventListener("load", () => {
 
-    noBtn.style.left = "65%";
-    noBtn.style.top = "65%";
+    noBtn.style.left = "50%";
+    noBtn.style.top = "50%";
 
 });
 
@@ -57,19 +43,18 @@ noBtn.addEventListener("click", (e) => {
     }
 
     counter.textContent =
-        `Escape attempts: ${count + 1} 🤨`;
+        `Escape attempts: ${count + 1} 😤`;
 
-    const buttonWidth = noBtn.offsetWidth;
-    const buttonHeight = noBtn.offsetHeight;
+    /* Make it escape across whole screen */
 
     const maxX =
         window.innerWidth -
-        buttonWidth -
+        noBtn.offsetWidth -
         20;
 
     const maxY =
         window.innerHeight -
-        buttonHeight -
+        noBtn.offsetHeight -
         20;
 
     const randomX =
@@ -78,16 +63,21 @@ noBtn.addEventListener("click", (e) => {
     const randomY =
         Math.random() * maxY;
 
+    noBtn.style.position = "fixed";
+    noBtn.style.transform = "none";
+
     noBtn.style.left =
         randomX + "px";
 
     noBtn.style.top =
         randomY + "px";
 
+    /* Grow Yes button */
+
     yesSize += 0.08;
 
     yesBtn.style.transform =
-        `scale(${yesSize})`;
+        `translate(-120%, -50%) scale(${yesSize})`;
 
     count++;
 });
@@ -142,8 +132,8 @@ for (let i = 0; i < 21; i++) {
                 .querySelectorAll(
                     "#dateCards .option-card"
                 )
-                .forEach(card =>
-                    card.classList.remove(
+                .forEach(c =>
+                    c.classList.remove(
                         "selected"
                     )
                 );
@@ -161,7 +151,7 @@ for (let i = 0; i < 21; i++) {
     dateCards.appendChild(card);
 }
 
-/* CALL OPTION */
+/* DATE CALL OPTION */
 
 const callDate =
     document.createElement("div");
@@ -180,8 +170,8 @@ callDate.addEventListener(
             .querySelectorAll(
                 "#dateCards .option-card"
             )
-            .forEach(card =>
-                card.classList.remove(
+            .forEach(c =>
+                c.classList.remove(
                     "selected"
                 )
             );
@@ -208,16 +198,16 @@ const selectedTime =
 
 for (let h = 5; h <= 22; h++) {
 
+    let display =
+        (h > 12 ? h - 12 : h) +
+        ":00 " +
+        (h >= 12 ? "PM" : "AM");
+
     const card =
         document.createElement("div");
 
     card.className =
         "option-card";
-
-    let display =
-        (h > 12 ? h - 12 : h) +
-        ":00 " +
-        (h >= 12 ? "PM" : "AM");
 
     card.innerText =
         display;
@@ -230,8 +220,8 @@ for (let h = 5; h <= 22; h++) {
                 .querySelectorAll(
                     "#timeCards .option-card"
                 )
-                .forEach(card =>
-                    card.classList.remove(
+                .forEach(c =>
+                    c.classList.remove(
                         "selected"
                     )
                 );
@@ -249,7 +239,7 @@ for (let h = 5; h <= 22; h++) {
     timeCards.appendChild(card);
 }
 
-/* CALL OPTION */
+/* TIME CALL OPTION */
 
 const callTime =
     document.createElement("div");
@@ -268,8 +258,8 @@ callTime.addEventListener(
             .querySelectorAll(
                 "#timeCards .option-card"
             )
-            .forEach(card =>
-                card.classList.remove(
+            .forEach(c =>
+                c.classList.remove(
                     "selected"
                 )
             );
@@ -295,27 +285,23 @@ form.addEventListener(
     "submit",
     (e) => {
 
-        if (
-            !selectedDate.value
-        ) {
+        if (!selectedDate.value) {
 
             e.preventDefault();
 
             alert(
-                "Pick a date 😌"
+                "Please choose a date 🙂"
             );
 
             return;
         }
 
-        if (
-            !selectedTime.value
-        ) {
+        if (!selectedTime.value) {
 
             e.preventDefault();
 
             alert(
-                "Pick a time 😌"
+                "Please choose a time 🙂"
             );
 
             return;

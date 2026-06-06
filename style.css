@@ -6,42 +6,83 @@
 }
 
 body{
+
     min-height:100vh;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
     padding:20px;
+
     overflow-x:hidden;
 
-    background:linear-gradient(
+    background:
+    linear-gradient(
         135deg,
         #004182,
         #0A66C2,
+        #378FE9,
         #70B5F9
     );
+
+}
+
+/* BACKGROUND GLOW */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(
+        circle at top left,
+        rgba(255,255,255,0.15),
+        transparent 40%
+    ),
+
+    radial-gradient(
+        circle at bottom right,
+        rgba(255,255,255,0.12),
+        transparent 40%
+    );
+
+    pointer-events:none;
 }
 
 /* MAIN CARD */
 
 .card{
+
     width:100%;
     max-width:520px;
 
-    background:rgba(255,255,255,0.97);
+    background:rgba(255,255,255,0.12);
 
-    padding:28px;
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.25);
 
     border-radius:28px;
 
-    box-shadow:
-        0 20px 50px rgba(0,0,0,0.25);
+    padding:28px;
 
-    border:1px solid rgba(255,255,255,0.5);
+    box-shadow:
+    0 20px 50px rgba(0,0,0,0.25);
 
     text-align:center;
 
     animation:floatCard 5s ease-in-out infinite;
+
 }
+
+/* FLOAT ANIMATION */
 
 @keyframes floatCard{
 
@@ -58,29 +99,36 @@ body{
     }
 }
 
-/* HEADINGS */
+/* TEXT */
+
+h1,
+h2,
+h3,
+label,
+.subtext,
+#counter,
+.intro-text{
+
+    color:white;
+}
 
 h1{
-    color:#0A66C2;
     margin-top:15px;
     margin-bottom:15px;
 }
 
 h2{
-    color:#004182;
     margin-bottom:20px;
 }
 
 .subtext{
     min-height:35px;
-    font-weight:bold;
-    color:#004182;
     margin-top:10px;
+    font-weight:bold;
 }
 
 #counter{
-    color:#0A66C2;
-    margin-top:8px;
+    margin-top:10px;
     font-size:14px;
 }
 
@@ -88,9 +136,11 @@ h2{
 
 .terms-box{
 
-    background:#F3F8FD;
+    background:rgba(255,255,255,0.12);
 
-    border:2px solid #70B5F9;
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,0.3);
 
     border-radius:20px;
 
@@ -100,13 +150,18 @@ h2{
 }
 
 .terms-box h3{
-    color:#004182;
     margin-bottom:10px;
 }
 
+/* INDIVIDUAL TERMS */
+
 .term{
 
-    background:white;
+    background:rgba(255,255,255,0.15);
+
+    backdrop-filter:blur(8px);
+
+    border:1px solid rgba(255,255,255,0.2);
 
     padding:12px;
 
@@ -114,8 +169,7 @@ h2{
 
     margin-top:10px;
 
-    box-shadow:
-        0 3px 8px rgba(0,0,0,0.08);
+    color:white;
 }
 
 /* BUTTON AREA */
@@ -124,9 +178,12 @@ h2{
 
     position:relative;
 
-    height:180px;
+    width:100%;
 
-    margin-top:20px;
+    height:140px;
+
+    margin-top:25px;
+
 }
 
 /* GENERAL BUTTON */
@@ -141,42 +198,51 @@ button{
 
     padding:14px 24px;
 
-    transition:0.3s;
-
     font-size:16px;
+
+    transition:0.3s;
 }
 
 /* YES BUTTON */
 
 #yesBtn{
 
-    background:#0A66C2;
+    position:absolute;
 
-    color:white;
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-120%, -50%);
+
+    background:white;
+
+    color:#0A66C2;
 
     font-weight:bold;
 
-    position:absolute;
-
-    left:20px;
-
-    top:20px;
-
     box-shadow:
-        0 8px 20px rgba(10,102,194,0.35);
+    0 8px 20px rgba(255,255,255,0.25);
+
+    z-index:2;
+
 }
 
 /* NO BUTTON */
 
 #noBtn{
 
-    position:fixed;
+    position:absolute;
 
-    z-index:9999;
+    left:50%;
+
+    top:50%;
+
+    transform:translate(20%, -50%);
 
     background:white;
 
-    color:#444;
+    color:#333;
 
     font-weight:bold;
 
@@ -185,9 +251,11 @@ button{
     min-width:80px;
 
     box-shadow:
-        0 4px 15px rgba(0,0,0,0.15);
-}
+    0 6px 20px rgba(0,0,0,0.2);
 
+    z-index:2;
+
+}
 /* FORM */
 
 form{
@@ -201,67 +269,7 @@ form{
     margin-top:20px;
 }
 
-label{
-
-    text-align:left;
-
-    font-weight:bold;
-
-    color:#004182;
-
-    margin-top:10px;
-}
-
-/* TEXTAREA */
-
-textarea{
-
-    padding:14px;
-
-    border:none;
-
-    border-radius:15px;
-
-    resize:none;
-
-    background:#F7FAFC;
-
-    box-shadow:
-        inset 0 2px 6px rgba(0,0,0,0.08);
-}
-
-textarea:focus{
-
-    outline:none;
-
-    box-shadow:
-        0 0 0 3px rgba(10,102,194,0.15);
-}
-
-/* SUBMIT BUTTON */
-
-.submit-btn{
-
-    background:#0A66C2;
-
-    color:white;
-
-    font-weight:bold;
-
-    padding:15px;
-
-    margin-top:10px;
-
-    box-shadow:
-        0 8px 20px rgba(10,102,194,0.35);
-}
-
-.submit-btn:hover{
-
-    transform:translateY(-2px);
-}
-
-/* DATE + TIME CARDS */
+/* DATE + TIME CARD GRID */
 
 .card-grid{
 
@@ -289,15 +297,21 @@ textarea:focus{
 }
 
 .card-grid::-webkit-scrollbar-thumb{
-    background:#0A66C2;
-    border-radius:10px;
+
+    background:white;
+
+    border-radius:20px;
 }
 
-/* OPTION CARD */
+/* OPTION CARDS */
 
 .option-card{
 
-    background:white;
+    background:rgba(255,255,255,0.15);
+
+    backdrop-filter:blur(10px);
+
+    border:1px solid rgba(255,255,255,0.25);
 
     padding:12px;
 
@@ -305,32 +319,79 @@ textarea:focus{
 
     cursor:pointer;
 
-    border:2px solid #DCE6F1;
-
-    transition:0.25s;
+    color:white;
 
     font-size:14px;
 
-    box-shadow:
-        0 2px 6px rgba(0,0,0,0.05);
+    transition:0.25s;
 }
 
 .option-card:hover{
 
     transform:translateY(-2px);
 
-    border-color:#70B5F9;
+    background:rgba(255,255,255,0.25);
 }
+
+/* SELECTED CARD */
 
 .option-card.selected{
 
-    background:#E7F3FF;
+    background:rgba(255,255,255,0.35);
 
-    border-color:#0A66C2;
+    border:2px solid white;
 
-    color:#004182;
+    color:white;
 
     font-weight:bold;
+}
+
+/* TEXTAREA */
+
+textarea{
+
+    background:rgba(255,255,255,0.15);
+
+    backdrop-filter:blur(10px);
+
+    border:1px solid rgba(255,255,255,0.25);
+
+    color:white;
+
+    padding:14px;
+
+    border-radius:15px;
+
+    resize:none;
+
+    outline:none;
+}
+
+textarea::placeholder{
+    color:rgba(255,255,255,0.7);
+}
+
+/* SUBMIT BUTTON */
+
+.submit-btn{
+
+    background:white;
+
+    color:#0A66C2;
+
+    font-weight:bold;
+
+    padding:15px;
+
+    margin-top:10px;
+
+    box-shadow:
+    0 8px 20px rgba(255,255,255,0.25);
+}
+
+.submit-btn:hover{
+
+    transform:translateY(-2px);
 }
 
 /* HIDDEN */
@@ -339,21 +400,6 @@ textarea:focus{
     display:none;
 }
 
-/* FLOATING ICONS */
-
-.hearts::before,
-.hearts::after{
-
-    content:"💙 ✨ 💙 ⭐ 💙";
-
-    position:fixed;
-
-    font-size:24px;
-
-    opacity:0.15;
-
-    animation:floatIcons 12s linear infinite;
-}
 
 .hearts::after{
     animation-delay:6s;
