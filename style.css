@@ -448,3 +448,30 @@ textarea::placeholder{
         font-size:13px;
     }
 }
+.apology-image{
+
+    position:absolute;
+
+    bottom:10px;
+
+    left:10px;
+
+    pointer-events:none;
+}
+
+.apology-image img{
+
+    width:95px;
+
+    height:auto;
+
+    object-fit:contain;
+}
+
+@media(max-width:600px){
+
+    .apology-image img{
+
+        width:70px;
+    }
+}
